@@ -33,7 +33,7 @@ async def init_db(force: bool = False):
         
         async with aiosqlite.connect(database_path) as db:
             await db.execute("PRAGMA foreign_keys = ON")
-            #await db.execute("PRAGMA journal_mode = WAL")
+            await db.execute("PRAGMA journal_mode = WAL")
             
 
             await db.executescript("""
@@ -128,17 +128,20 @@ async def insert_item(table_name: str, **kwargs) -> bool:
         print(f"Unexpected error inserting into {table_name}: {e}")
         return False
 
-async def get_item(table_name: str, id: int) -> Optional[dict]:
+async def get_item(table_name: str, id: int) -> dict:
     async with get_connection() as conn:
+        print("p1")
         async with conn.execute(
             f"SELECT * FROM {table_name} WHERE id = ?",
             (id,)
         ) as cursor:
+            print("p2:", cursor)
             row = await cursor.fetchone()
+            print("p3:", row)
             if row:
                 columns = [description[0] for description in cursor.description]
                 return dict(zip(columns, row))
-            return None
+            return {}
 
 async def get_items(table_name: str, **kwargs) -> List[dict]:
     async with get_connection() as conn:

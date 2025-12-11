@@ -49,7 +49,7 @@ async def options_handler(path: str):
 
 @app.get("/api/map", response_model=MapResponse)
 async def getMap()->MapResponse:
-    return my_map.brief()
+    return await my_map.brief()
 
 
 
