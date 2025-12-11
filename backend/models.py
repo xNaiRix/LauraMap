@@ -71,12 +71,14 @@ class ArticleDB(BaseModel):
 
 
 class Point:
-    def __init__(self, id:int, name:str, avatar_url:str, place:tuple[int,int], size:int,article_id:int, audio_url:str="", info:str=""):
+    def __init__(self, id:int, name:str,size:int, avatar_url:str|None=None, article_id:int|None=None, place:tuple[int,int]=(0,0), audio_url:str|None="", brief_info:str|None="", **kwargs):
+        if 'x' in kwargs and "y" in kwargs:
+            place = (kwargs["x"],kwargs["y"])
         self.id=id
         self.name=name
         self.avatar_url=avatar_url
         self.place=place
-        self.info=info
+        self.brief_info=brief_info
         self.size=size
         self.audio_url = audio_url
         self.article_id = article_id
