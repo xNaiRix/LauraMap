@@ -1,5 +1,5 @@
-from models import MapPointBrief, MapResponse
-from database import getItem
+from models import MapPointBrief, MapResponse, Point
+from database import get_item
 class Map:
     def __init__(self):
         self.map_image_path = "/uploads/map.svg"
@@ -9,7 +9,7 @@ class Map:
     def brief(self):
         brief = MapResponse(map_url=self.map_image_path, tittle=self.tittle,points=list())
         for i in range(self.points_cnt):
-            brief.points.append(getItem(tableName="Points", id=i).brief())
+            brief.points.append(Point(**get_item(tableName="Points", id=i)).brief())
         return brief
 
 

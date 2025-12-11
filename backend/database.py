@@ -41,7 +41,7 @@ pre_points = [{"name":"Кубанский волк", "place":(37, 722)},
 
 database = []
 for i, point in enumerate(pre_points):
-    database.append(Point(id=i, name=point["name"], place=point["place"], avatar_url=f"/uploads/map_items/{i}.png", info="", size=point.get("size", 255)))
+    database.append(dict(id=i, name=point["name"], place=point["place"], avatar_url=f"/uploads/map_items/{i}.png", info="", size=point.get("size", 255),article_id=i))
 database_init=False
 async def get_db_path():
     global database_init
@@ -91,11 +91,9 @@ async def init():
 #==========================================
 
 
-def getItem(tableName:str, id:int)->Point|None:
-    # if not database_init:
-    #     init()
+def get_item(tableName:str, id:int)->Point|None:
     for point in database:
-        if point.id == id:
+        if point["id"] == id:
             return point
     return None
 

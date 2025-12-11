@@ -71,7 +71,7 @@ class ArticleDB(BaseModel):
 
 
 class Point:
-    def __init__(self, id:int, name:str, avatar_url:str, place:tuple[int,int], size:int, audio_url:str="", info:str=""):
+    def __init__(self, id:int, name:str, avatar_url:str, place:tuple[int,int], size:int,article_id:int, audio_url:str="", info:str=""):
         self.id=id
         self.name=name
         self.avatar_url=avatar_url
@@ -79,6 +79,7 @@ class Point:
         self.info=info
         self.size=size
         self.audio_url = audio_url
+        self.article_id = article_id
     def brief(self):
         return MapPointBrief(id=self.id, x=self.place[0], y = self.place[1], name=self.name, avatar_url=self.avatar_url, size=self.size)
     def medium(self):
