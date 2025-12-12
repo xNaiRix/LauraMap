@@ -21,7 +21,7 @@ async def get_db_path() -> str:
 
 async def init_db(force: bool = False):
     global _initialized
-    
+    print(_initialized)
     async with _init_lock:
         if _initialized and not force:
             return
@@ -42,29 +42,28 @@ async def init_db(force: bool = False):
                     article_html TEXT,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
-                
+
                 CREATE TABLE IF NOT EXISTS Points (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT NOT NULL,
-                    avatar_url TEXT,
+                    avatar_id INTEGER,
                     x INTEGER,
                     y INTEGER,
                     size INTEGER DEFAULT 255,
                     brief_info TEXT,
-                    audio_url TEXT,
+                    audio_id INTEGER,
                     article_id INTEGER,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (article_id) REFERENCES Articles(id) ON DELETE SET NULL
+                    FOREIGN KEY (article_id) REFERENCES Articles(id) ON DELETE SET NULL,
+                    FOREIGN KEY (avatar_id) REFERENCES Media(id) ON DELETE SET NULL,
+                    FOREIGN KEY (audio_id) REFERENCES Media(id) ON DELETE SET NULL
                 );
-                
+
                 CREATE TABLE IF NOT EXISTS Media (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    point_id INTEGER NOT NULL,
                     media_url TEXT NOT NULL,
-                    url_type TEXT NOT NULL CHECK (url_type IN ('photo', 'video', 'audio')),
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (point_id) REFERENCES Points(id) ON DELETE CASCADE,
-                    UNIQUE(point_id, media_url)
+                    media_type TEXT NOT NULL CHECK (media_type IN ('photo', 'video', 'audio')),
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
             """)
             
@@ -80,64 +79,51 @@ async def get_connection():
         await conn.execute("PRAGMA foreign_keys = ON")
         yield conn
 
-async def insert_item(table_name: str, **kwargs) -> bool:
+async def insert_item(table_name: str, **kwargs) -> dict:
     valid_tables = {'Articles', 'Points', 'Media'}
     if table_name not in valid_tables:
         print(f"Invalid table name: {table_name}. Valid tables: {valid_tables}")
-        return False
+        return {}
     if not kwargs:
         print("No data provided for insertion")
-        return False
+        return {}
     
     try:
         fields = list(kwargs.keys())
         placeholders = ', '.join(['?' for _ in fields])
         field_names = ', '.join(fields)
         values = tuple(kwargs.values())
-        
         async with get_connection() as db:
-            if "id" in kwargs:
-                id = kwargs["id"]
-                async with db.execute(f"SELECT COUNT(*) FROM {table_name} WHERE id = ?", (id,)) as cursor:
-                    count = await cursor.fetchone()
-            elif table_name in {'Articles', 'Points'}:
-                count = (0,)
-            else:
-                async with db.execute(f"SELECT COUNT(*) FROM {table_name} WHERE ({', '.join(f'{x}=?' for x in fields)})", (values)) as cursor:
-                    count = await cursor.fetchone()
-            if count[0] != 0:
-                    print(f"There is same object in '{table_name}': '{kwargs}' ")
-                    return False
-            
-            await db.execute(
+            cursor = await db.execute(
                 f"INSERT INTO {table_name} ({field_names}) VALUES ({placeholders})",
                 values
             )
             await db.commit()
+            last_id = cursor.lastrowid
             
             print(f"Successfully inserted into {table_name}: {kwargs}")
-            return True
+            return {"id":last_id}
             
     except aiosqlite.IntegrityError as e:
         print(f"Integrity error inserting into {table_name}: {e}")
-        return False
+        return {}
     except aiosqlite.Error as e:
         print(f"Database error inserting into {table_name}: {e}")
-        return False
+        return {}
     except Exception as e:
         print(f"Unexpected error inserting into {table_name}: {e}")
-        return False
+        return {}
 
 async def get_item(table_name: str, id: int) -> dict:
     async with get_connection() as conn:
-        print("p1")
+        #print("p1")
         async with conn.execute(
             f"SELECT * FROM {table_name} WHERE id = ?",
             (id,)
         ) as cursor:
-            print("p2:", cursor)
+            #print("p2:", cursor)
             row = await cursor.fetchone()
-            print("p3:", row)
+            #print("p3:", row)
             if row:
                 columns = [description[0] for description in cursor.description]
                 return dict(zip(columns, row))
