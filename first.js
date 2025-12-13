@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         const createIcon = () => {
             const zoom = map.getZoom();
-            const size = point.size * 0.3;
+            const size = point.size * 0.3 * zoom;
             return L.divIcon({
                 className: 'animal-marker',
                 html: `<div class="animal-circle" style="
