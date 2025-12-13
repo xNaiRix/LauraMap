@@ -15,9 +15,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         zoomControl: false,
         attributionControl: false
     });
-    map.options.crs.transformation = new L.Transformation(1, 0, -1, 0);
     var mapBounds = [[0, 0], [1985, 6804]]; 
-    const overlay = L.imageOverlay(url + data.map_url, mapBounds).addTo(map);
+    L.imageOverlay(url + data.map_url, mapBounds).addTo(map);
     map.setMaxBounds(mapBounds);
     document.getElementById('map').style.backgroundColor = '#30462D';
 
@@ -25,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         const createIcon = () => {
             const zoom = map.getZoom();
-            const size = point.size * 0.3 * zoom;
+            const size = point.size * 0.3;
             return L.divIcon({
                 className: 'animal-marker',
                 html: `<div class="animal-circle" style="
@@ -46,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             .bindPopup(`
                 <div class="mini-page" style="padding: 5px;">
                     <h3>${point.name}</h3>
-                    <p>kjsndsndksdnskjdnskjdnsdndkjnsdknsdnsdksdnsdnsk <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> djdjdkjjfkdfndk</p>
+                    <p>kjsndsndksdnskj <br><br><br><br><br><br><br><br><br><br><br><br> djdjdkjjfkdfndk</p>
                 </div>`, {
                     autoPan: false,
                     closeButton: true,
