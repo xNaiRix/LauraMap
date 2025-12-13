@@ -24,7 +24,7 @@ class Map:
     def __init__(self):
         self.map_image_path = "/uploads/map.svg"
         self.tittle="Карта Лауры"
-        self.points_cnt = 29
+        self.points_cnt = 30
 
     async def brief(self)->MapResponse:
         try:
