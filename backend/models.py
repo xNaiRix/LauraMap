@@ -64,51 +64,5 @@ class MapResponse(BaseModel):
     tittle:str
     points:List[MapPointBrief]
 
-class ArticleResponse(BaseModel):
-    id: int
-    title: str
-    content_html: str
-    created_at: datetime
-
-#для БД таблиц
-class PointCreate(BaseModel):
-    name: str
-    avatar_url: str
-    x: int
-    y: int
-    size: int
-    article_id: int
-
-class PointDB(BaseModel):
-    id: int
-    name: str
-    avatar_url: str
-    x: int
-    y: int
-    size: int
-    article_id: int
-    created_at: datetime = None
-
-class MediaCreate(BaseModel):
-    point_id: int
-    media_url: str
-    url_type: Literal["photo", "video", "audio"]
-
-class MediaDB(BaseModel):
-    id: int
-    point_id: int
-    media_url: str
-    url_type: str
-    created_at: datetime = None
-
-class ArticleCreate(BaseModel):
-    title: str
-    content_html: str
-
-class ArticleDB(BaseModel):
-    id: int
-    title: str
-    content_html: str
-    created_at: datetime = None
 
 

@@ -79,12 +79,10 @@ async def changeDB():
     #     f = await update_item(table_name="Points", **point)
     #     print(f)
     # d = []
-    # for i in range(1, 32):
-    #     d.append(await get_item(table_name="Points", id=i))
-
+    print(x:= await update_item(table_name="Points", id=9, y = 280))
     # print(d)
     #print(await update_item(table_name="Points", id=10, avatar_id=17))
     # for i in range(60):
     #     print(await get_item(table_name="Media", id=i))
 
-    return {"status":"offed", "points":None}
+    return {"status":"offed", "points":x}
