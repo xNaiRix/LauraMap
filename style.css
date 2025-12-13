@@ -1,0 +1,183 @@
+@font-face {
+  font-family: 'Montserrat Alternates';
+  src: url('fonts/MontserratAlternates-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+} 
+@font-face {
+  font-family: 'Montserrat';
+  src: url('fonts/Montserrat-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+} 
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: 600;
+    background-color: #C1D3CB;
+}
+
+.title {
+    position: fixed;
+    height: 11.5vh;
+    width: 83vw;
+    background-color: #91AFA2;
+    border-bottom: 5px solid #30462D;
+    border-right: 5px solid #30462D;
+    border-bottom-right-radius: 3vw;
+
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    font-size: 5vh;
+    color: #30462D;
+}
+
+#logo {
+    position: fixed;
+    height: 18vh;
+    width: 18vh;
+    top: 1.4vh;
+    right: 0;
+}
+
+.main-content {
+    position: fixed;
+    width: 100vw;
+    height: 60vh;
+    top: 20%;
+    background-color: #30462D;
+}
+
+.side-bar {
+    position: absolute;
+    height: 30%;
+    width: 6%;
+    left: 0;
+    top: 30%;
+    background-color: #91AFA2;
+    z-index: 2;
+    pointer-events: none;
+    border-bottom: 5px solid #30462D;
+    border-right: 5px solid #30462D;
+    border-top: 5px solid #30462D;
+    border-bottom-right-radius: 40px;
+    border-top-right-radius: 40px;
+}
+
+#manual {
+    position: absolute;
+    width: 68%;
+    height: 43%;
+    top: 8%;
+    left: 16%;
+}
+
+#add {
+    position: absolute;
+    width: 51.5%;
+    height: 33%;
+    bottom: 8%;
+    left: 24.25%;
+}
+
+.slider {
+    position: absolute;
+    height: 90%;
+    width: 5%;
+    right: 0;
+    top: 5%;
+}
+
+#map {
+    position: absolute;
+    width: 90%;
+    height: 95%;
+    top: 2.5%;
+    left: 5%;
+    cursor: grab;
+    z-index: 1;
+}
+
+.complain {
+    position: fixed;
+    height: 12.5vh;
+    width: 12.5vh;
+    bottom: 0;
+    background-color: #91AFA2;
+    border-top: 5px solid #30462D;
+    border-right: 5px solid #30462D;
+    border-top-right-radius: 40px;
+}
+
+#complaints {
+    position: absolute;
+    height: 70%;
+    width: 70%;
+    top: 15%;
+    left: 15%;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    height: 12.5vh;
+    width: 19vw;
+    font-family: "Montserrat", sans-serif;
+    background-color: #91AFA2;
+    border-top-left-radius: 40px;
+}
+
+.phones {
+    position: absolute;
+    width: fit-content;
+    max-width: 100%;
+    height: fit-content;
+    max-height: 100%;
+    margin: auto;
+    padding: 20px;
+    font-size: calc(10px + 1vw);
+    color: #30462D;
+}
+
+
+
+/* Метки, страницы и т.д */
+
+.animal-marker {
+    background: none !important;
+    border: none !important;
+}
+
+.animal-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+        
+.animal-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.mini-page {
+    overflow: visible;
+}
+
+.leaflet-popup {
+    z-index: 1000 !important;
+}
+
+.leaflet-container {
+    overflow: visible !important;
+}
+
+.custom-popup .leaflet-popup-tip-container {
+    display: none;
+}
