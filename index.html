@@ -9,24 +9,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+     <main class="main-content">
+        <div id="map"></div>
+    </main>
 
     <div class="title"> Интерактивная карта заповедника “Лаура” </div>
-    <img id="logo" src="images/logo.png" alt="Логотип Лауры">
-    <main class="main-content">
-        <div class="side-bar">
-            <img id="manual" src="images/manual_green.png" alt="Мануал">
-            <img id="add" src="images/add_green.png" alt="Добавить">
-        </div>
-        <div class="slider"></div>
-        <div id="map"></div>
-        
-    </main>
-    <div class="complain">
-        <img id="complaints" src="images/complaints_green.png" alt="Жалобы">
+    <div class="header">
+        <img id="logo" src="images/logo.png" alt="Логотип">
+        <p id="email">Почты разработчиков</p>
+        <p id="creators">
+            nertuzer1@gmail.com<br>timtuvad@gmail.com<br>ignatovaad@mail.ru
+        </p>
+        <button id="btn" onclick="window.open('https://lauraecotur.ru/#/entertainment', '_blank')">
+            Перейти на сайт
+        </button>
     </div>
-    <div class="footer"> 
-        <div class="phones"> +7 (988) 150-01-02<br>+7 (862) 240-51-36</div>
-    </div>
+
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="first.js"></script>
     
