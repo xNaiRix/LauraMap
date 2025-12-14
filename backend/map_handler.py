@@ -48,7 +48,6 @@ class Map:
             return {"status":"error"}
 
 
-
 my_map = None
 def init():
     global my_map#ещё сделать подгрузку с бд?

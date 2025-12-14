@@ -80,9 +80,4 @@ async def changeDB():
     #     print(f)
     # d = []
     print(x:= await get_items(table_name="Points"))
-    # print(d)
-    #print(await update_item(table_name="Points", id=10, avatar_id=17))
-    # for i in range(60):
-    #     print(await get_item(table_name="Media", id=i))
-
-    return {"status":"offed", "points":x}
+    return {"status":"offed", "points":[(t["id"], t["name"], t["audio_id"]) for t in x]}
