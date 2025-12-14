@@ -79,7 +79,7 @@ async def changeDB():
     #     f = await update_item(table_name="Points", **point)
     #     print(f)
     # d = []
-    print(x:= await update_item(table_name="Points", id=9, y = 280))
+    print(x:= await get_items(table_name="Points"))
     # print(d)
     #print(await update_item(table_name="Points", id=10, avatar_id=17))
     # for i in range(60):

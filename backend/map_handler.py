@@ -1,5 +1,5 @@
 from models import MapPointPreview, MapResponse, MapPointBrief
-from database import get_item, insert_item
+from database import get_item, get_items, insert_item
 
 class Point:
     def __init__(self, id:int, name:str,size:int, avatar_id:int|None=None, article_id:int|None=None, place:tuple[int,int]=(0,0), audio_id:int|None="", brief_info:str|None="", **kwargs):
@@ -24,16 +24,14 @@ class Map:
     def __init__(self):
         self.map_image_path = "/uploads/map.svg"
         self.tittle="Карта Лауры"
-        self.points_cnt = 30
 
     async def brief(self)->MapResponse:
         try:
             brief = MapResponse(map_url=self.map_image_path, tittle=self.tittle,points=list())
-            for i in range(1, self.points_cnt + 1):
-                print(i)
-                tmp = await get_item(table_name="Points", id=i)
-                print(tmp)
-                brief.points.append(await Point(**tmp).brief())
+            points = await get_items(table_name="Points")
+            print(points)
+            for point in points:
+                brief.points.append(await Point(**point).brief())
         except Exception as e:
             print(e)
             return brief
