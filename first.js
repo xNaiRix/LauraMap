@@ -1,4 +1,4 @@
-const url = 'http://10.82.19.18:8000';
+const url = 'http://10.82.57.82:8000';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const response = await fetch(url + '/api/map');
@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     var mapBounds = [[0, 0], [1985, 6804]]; 
     L.imageOverlay(url + data.map_url, mapBounds).addTo(map);
     map.setMaxBounds(mapBounds);
+    map.fitBounds(mapBounds);
     document.getElementById('map').style.backgroundColor = '#6D8967';
 
     data.points.forEach(async point => {
@@ -30,8 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         const createIcon = () => {
             const zoom = map.getZoom();
-            const size = (75 * Math.pow(2, zoom + 3)) * point.size / 255 * window.innerHeight / 1985;
-            console.log(size)
+            const size = Math.pow(2, zoom + 3) * point.size / 255 * window.innerHeight * 0.038;
             return L.divIcon({
                 className: 'animal-marker',
                 html: `<div class="animal-circle" style="

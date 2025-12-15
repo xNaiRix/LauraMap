@@ -110,9 +110,9 @@ body {
     position: fixed;
     width: 100vw;
     height: 70vh;
-    top: 17%;
+    top: 20vh;
     background-color: #6D8967;
-    overflow: hidden;
+    overflow: hidden !important;
 
     display: flex;
     align-items: center; 
@@ -120,9 +120,10 @@ body {
 }
 
 #map {
-    position: absolute;
-    width: 95%;
-    height: 95%;
+    height: 65vh;
+    width: auto;
+    aspect-ratio: 6804 / 1985;
+    max-width: 85vw;
     cursor: grab;
 }
 
